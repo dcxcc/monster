@@ -9,7 +9,7 @@
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
-    <artifactId>monster-gateway</artifactId>
+    <artifactId>monster-auth</artifactId>
 
     <properties>
         <maven.compiler.source>23</maven.compiler.source>
@@ -17,10 +17,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
     <dependencies>
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-gateway</artifactId>
-        </dependency>
+        <!-- SpringCloud Alibaba Nacos -->
         <dependency>
             <groupId>com.alibaba.cloud</groupId>
             <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
@@ -31,6 +28,7 @@
             <groupId>com.alibaba.cloud</groupId>
             <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
         </dependency>
+
         <!--适配bootstrap.yml-->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
@@ -39,8 +37,7 @@
 
         <dependency>
             <groupId>com.yl</groupId>
-            <artifactId>monster-common-redis</artifactId>
+            <artifactId>monster-common-security</artifactId>
         </dependency>
     </dependencies>
-
 </project>

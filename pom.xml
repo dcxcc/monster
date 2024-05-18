@@ -19,12 +19,13 @@
         <module>monster-api</module>
         <module>monster-modules</module>
         <module>monster-gateway</module>
+        <module>monster-auth</module>
     </modules>
 
     <properties>
         <spring.boot.version>3.2.5</spring.boot.version>
-        <spring-cloud.version>2023.0.1</spring-cloud.version>
-        <spring-cloud-alibaba.version>2022.0.0.0</spring-cloud-alibaba.version>
+        <spring.cloud.version>2023.0.1</spring.cloud.version>
+        <spring.cloud.alibaba.version>2022.0.0.0</spring.cloud.alibaba.version>
         <monster.version>0.0.1-SNAPSHOT</monster.version>
         <java.version>21</java.version>
         <java.jwt.version>4.4.0</java.jwt.version>
@@ -43,7 +44,7 @@
             <dependency>
                 <groupId>org.springframework.cloud</groupId>
                 <artifactId>spring-cloud-dependencies</artifactId>
-                <version>${spring-cloud.version}</version>
+                <version>${spring.cloud.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -52,19 +53,19 @@
             <dependency>
                 <groupId>com.alibaba.cloud</groupId>
                 <artifactId>spring-cloud-alibaba-dependencies</artifactId>
-                <version>${spring-cloud-alibaba.version}</version>
+                <version>${spring.cloud.alibaba.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
             <dependency>
                 <groupId>com.alibaba.cloud</groupId>
                 <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
-                <version>${spring-cloud-alibaba.version}</version>
+                <version>${spring.cloud.alibaba.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.alibaba.cloud</groupId>
                 <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
-                <version>${spring-cloud-alibaba.version}</version>
+                <version>${spring.cloud.alibaba.version}</version>
             </dependency>
             <!-- SpringBoot 依赖配置 -->
             <dependency>
@@ -91,19 +92,19 @@
             </dependency>
 
             <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-test</artifactId>
+                <version>${spring.boot.version}</version>
+                <scope>test</scope>
+            </dependency>
+
+            <dependency>
                 <groupId>org.projectlombok</groupId>
                 <artifactId>lombok</artifactId>
                 <optional>true</optional>
                 <version>${project.lombok.version}</version>
             </dependency>
 
-
-            <dependency>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-starter-test</artifactId>
-                <version>${spring.boot.version}</version>
-                <scope>test</scope>
-            </dependency>
 
             <dependency>
                 <groupId>com.alibaba.fastjson2</groupId>

@@ -1,5 +1,7 @@
 package com.yl.monster.system.api.domain;
 
+import com.baomidou.mybatisplus.annotation.TableLogic;
+import com.baomidou.mybatisplus.annotation.TableName;
 import com.yl.common.core.annotation.Excel;
 import com.yl.common.core.annotation.Excels;
 import com.yl.common.core.web.domain.BaseEntity;
@@ -16,6 +18,7 @@ import java.util.List;
  */
 @EqualsAndHashCode(callSuper = true)
 @Data
+@TableName(value = "sys_user",excludeProperty = {"dept","roles","roleIds","postIds","roleId"})
 public class SysUser extends BaseEntity {
     @Serial
     private static final long serialVersionUID = 1L;
@@ -58,6 +61,7 @@ public class SysUser extends BaseEntity {
     @Excel(name = "帐号状态", readConverterExp = "0=正常,1=停用")
     private String status;
 
+//    @TableLogic(value = "0",delval = "2")
     /** 删除标志（0代表存在 2代表删除） */
     private String delFlag;
 

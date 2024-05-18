@@ -1,6 +1,12 @@
+# Tomcat
+server:
+  port: 9200
+
+# Spring
 spring:
   application:
-    name: monster-modules-log
+    # 应用名称
+    name: monster-auth
   profiles:
     # 环境配置
     active: dev
@@ -21,5 +27,3 @@ spring:
             group: MONSTER_GROUP
             refresh: true
         refresh-enabled: true
-server:
-  port: 9300

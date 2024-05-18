@@ -16,7 +16,10 @@ spring:
         # 配置文件格式
         file-extension: yml
         # 共享配置
-        shared-configs:
-          - application-${spring.profiles.active}.${spring.cloud.nacos.config.file-extension}
+        extension-configs:
+          - data-id: monster-db-redis-mp.${spring.cloud.nacos.config.file-extension}
+            group: MONSTER_GROUP
+            refresh: true
+        refresh-enabled: true
 server:
   port: 8080

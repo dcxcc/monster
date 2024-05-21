@@ -1,6 +1,7 @@
 package com.yl.auth.service;
 
 import com.yl.common.core.constant.Constants;
+import com.yl.common.core.constant.SecurityConstants;
 import com.yl.common.core.constant.UserConstants;
 import com.yl.common.core.domain.R;
 import com.yl.common.core.enums.UserStatus;
@@ -46,7 +47,7 @@ public class LoginService {
             recordLoginInformation(username, Constants.LOGIN_FAIL, "用户名不在指定范围");
             throw new ServiceException("用户名不在指定范围");
         }
-        R<LoginUser> userResult = remoteUserClient.getUserInfo(username);
+        R<LoginUser> userResult = remoteUserClient.getUserInfo(username,SecurityConstants.INNER);
         if (R.FAIL == userResult.getCode()) {
             throw new ServiceException(userResult.getMsg());
         }
@@ -82,7 +83,7 @@ public class LoginService {
         } else if (Constants.LOGIN_FAIL.equals(status)) {
             information.setStatus(Constants.LOGIN_FAIL_STATUS);
         }
-        remoteLogClient.saveLoginInformation(information);
+        remoteLogClient.saveLoginInformation(information, SecurityConstants.INNER);
     }
 
 }

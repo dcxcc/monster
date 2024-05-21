@@ -12,7 +12,6 @@ import com.yl.common.redis.service.IRedisService;
 import com.yl.common.security.utils.SecurityUtils;
 import com.yl.monster.system.api.model.LoginUser;
 import jakarta.servlet.http.HttpServletRequest;
-import org.apache.catalina.security.SecurityUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -49,7 +48,7 @@ public class TokenService {
     /**
      * 缓存过期时间，单位为毫秒。过期时间基于CacheConstants中的EXPIRATION常量和定义的分钟单位进行计算。
      */
-    private final static long expireTime = CacheConstants.EXPIRATION * MILLIS_MINUTE;
+    private final static long EXPIRE_TIME = CacheConstants.EXPIRATION * MILLIS_MINUTE;
 
     /**
      * 访问令牌的键，使用CacheConstants中定义的LOGIN_TOKEN_KEY。
@@ -75,9 +74,9 @@ public class TokenService {
         claimsMap.put(SecurityConstants.DETAILS_USER_ID, userId);
         claimsMap.put(SecurityConstants.DETAILS_USERNAME, userName);
         HashMap<String, Object> rspMap = new HashMap<>();
-        String jwt = JwtAuthenticationService.generateToken(claimsMap, expireTime);
+        String jwt = JwtAuthenticationService.generateToken(claimsMap, EXPIRE_TIME);
         rspMap.put("access_token", jwt);
-        rspMap.put("expires_in", expireTime);
+        rspMap.put("expires_in", EXPIRE_TIME);
         return rspMap;
     }
 
@@ -102,7 +101,8 @@ public class TokenService {
 
         if (StringUtils.isEmpty(token)) {
             log.warn("Token is empty.");
-            return null; // 提前返回，避免不必要的操作
+            return null;
+            // 提前返回，避免不必要的操作
         }
 
         try {
@@ -117,7 +117,8 @@ public class TokenService {
             user = getUserFromRedis(userKey);
 
         } catch (Exception e) {
-            log.error("Failed to get user information.", e); // 记录详细的错误日志
+            log.error("Failed to get user information.", e);
+            // 记录详细的错误日志
             // 这里不再抛出运行时异常，因为异常类型和原因已经在日志中记录，业务逻辑可以根据需要决定是否需要再次处理异常
         }
 
@@ -136,7 +137,8 @@ public class TokenService {
             // 这里假设redis存储的已经是LoginUser对象的JSON字符串
             return JSONObject.parseObject(JSONObject.toJSONString(object), LoginUser.class);
         }
-        return null; // 如果Redis中没有找到用户信息，则返回null
+        return null;
+        // 如果Redis中没有找到用户信息，则返回null
     }
 
 
@@ -154,6 +156,19 @@ public class TokenService {
     }
 
     /**
+     * 验证令牌有效期，相差不足120分钟，自动刷新缓存
+     *
+     */
+    public void verifyToken(LoginUser loginUser)
+    {
+        long expireTime = loginUser.getExpireTime();
+        long currentTime = System.currentTimeMillis();
+        if (expireTime - currentTime <= MILLIS_MINUTE_TEN)
+        {
+            refreshToken(loginUser);
+        }
+    }
+    /**
      * 刷新用户登录令牌。
      * 该方法会更新用户的登录时间（loginTime）和过期时间（expireTime），并重新在Redis中设置对应的令牌（token），
      * 以确保用户会话的有效性。
@@ -163,11 +178,11 @@ public class TokenService {
     private void refreshToken(LoginUser loginUser) {
         // 更新用户的登录时间和过期时间
         loginUser.setLoginTime(System.currentTimeMillis())
-                .setExpireTime(loginUser.getLoginTime() + expireTime);
+                .setExpireTime(loginUser.getLoginTime() + EXPIRE_TIME);
         // 生成令牌的键值
         String tokenKey = getTokenKey(loginUser.getToken());
         // 在Redis中设置用户信息，确保会话在指定时间内有效
-        redisService.set(tokenKey, loginUser, expireTime, TimeUnit.MILLISECONDS);
+        redisService.set(tokenKey, loginUser, EXPIRE_TIME, TimeUnit.MILLISECONDS);
     }
 
     private String getTokenKey(String token) {

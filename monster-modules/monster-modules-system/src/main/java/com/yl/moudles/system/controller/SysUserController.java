@@ -3,11 +3,11 @@ package com.yl.moudles.system.controller;
 import com.yl.common.core.domain.R;
 import com.yl.common.core.utils.StringUtils;
 import com.yl.common.core.web.controller.BaseController;
+import com.yl.common.security.annotation.InnerAuth;
 import com.yl.monster.system.api.domain.SysUser;
 import com.yl.monster.system.api.model.LoginUser;
 import com.yl.moudles.system.service.ISysPermissionService;
 import com.yl.moudles.system.service.ISysUserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,7 +31,7 @@ public class SysUserController extends BaseController {
         this.userService = userService;
         this.permissionService = permissionService;
     }
-
+    @InnerAuth
     @GetMapping("/info/{username}")
     public R<LoginUser> info(@PathVariable String username) {
         SysUser sysUser = userService.getUserByName(username);

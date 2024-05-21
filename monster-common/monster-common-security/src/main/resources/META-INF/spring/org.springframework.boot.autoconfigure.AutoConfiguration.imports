@@ -1,1 +1,2 @@
 com.yl.common.security.service.TokenService
+com.yl.common.security.aspect.InnerAuthAspect

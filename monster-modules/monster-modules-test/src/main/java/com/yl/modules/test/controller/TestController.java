@@ -1,5 +1,6 @@
 package com.yl.modules.test.controller;
 
+import com.yl.common.core.constant.SecurityConstants;
 import com.yl.common.core.web.controller.BaseController;
 import com.yl.common.core.web.domain.AjaxResult;
 import com.yl.common.core.web.page.PageResult;
@@ -9,7 +10,6 @@ import com.yl.common.security.service.TokenService;
 import com.yl.monster.system.api.RemoteLogClient;
 import com.yl.monster.system.api.domain.SysUser;
 import com.yl.monster.system.api.model.LoginUser;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -49,7 +49,7 @@ public class TestController extends BaseController {
     public PageResult page(@PathVariable Long page, @PathVariable Long size) {
         //        Mono<PageResult> pageResultMono = webClient.get().uri("http://monster-modules-log/log/page").retrieve().bodyToMono(PageResult.class);
 //        PageResult pageResult = pageResultMono.block();
-        return remoteLogClient.page(page, size);
+        return remoteLogClient.page(page, size, SecurityConstants.INNER);
     }
 
     @GetMapping("/token")

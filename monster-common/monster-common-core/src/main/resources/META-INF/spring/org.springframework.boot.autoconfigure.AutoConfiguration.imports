@@ -1,2 +1,2 @@
-com.yl.common.core.utils.StringUtils
+com.yl.common.core.utils.SpringUtils
 com.yl.common.core.config.MybatisPlusConfig

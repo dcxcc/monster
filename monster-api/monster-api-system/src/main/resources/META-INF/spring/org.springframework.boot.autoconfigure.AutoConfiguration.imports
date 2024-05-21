@@ -1,1 +1,2 @@
 com.yl.monster.system.api.factory.RemoteLogFactory
+com.yl.monster.system.api.factory.RemoteUserFactory

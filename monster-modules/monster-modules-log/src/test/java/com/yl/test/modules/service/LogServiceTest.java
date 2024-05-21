@@ -1,8 +1,8 @@
 package com.yl.test.modules.service;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.yl.modules.log.domain.OperLog;
-import com.yl.modules.log.mapper.LogMapper;
+import com.yl.monster.system.api.domain.OperLog;
+import com.yl.modules.log.mapper.OperLogMapper;
 import com.yl.modules.log.service.ILogService;
 import com.yl.test.modules.BaseTest;
 import org.junit.Test;
@@ -17,12 +17,12 @@ import java.util.List;
  */
 public class LogServiceTest extends BaseTest {
     @Autowired
-    LogMapper logMapper;
+    OperLogMapper operLogMapper;
     @Autowired
     ILogService logService;
     @Test
     public void testMapper() {
-        List<OperLog> operLogs = logMapper.selectList(null);
+        List<OperLog> operLogs = operLogMapper.selectList(null);
         operLogs.forEach(System.out::println);
     }
     @Test

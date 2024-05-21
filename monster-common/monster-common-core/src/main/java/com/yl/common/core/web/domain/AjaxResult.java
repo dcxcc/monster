@@ -72,8 +72,10 @@ public class AjaxResult extends HashMap<String, Object> {
      */
     @Override
     public AjaxResult put(String key, Object value) {
-        super.put(key, value); // 将键值对存储到父类容器中
-        return this; // 支持链式调用
+        // 将键值对存储到父类容器中
+        super.put(key, value);
+        // 支持链式调用
+        return this;
     }
 
     /**
@@ -118,7 +120,6 @@ public class AjaxResult extends HashMap<String, Object> {
     /**
      * 返回错误消息
      *
-     * @return
      */
     public static AjaxResult error() {
         return AjaxResult.error("操作失败");

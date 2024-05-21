@@ -1,9 +1,8 @@
 package com.yl.modules.log.service.impl;
 
-import com.baomidou.mybatisplus.extension.service.IService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.yl.modules.log.domain.OperLog;
-import com.yl.modules.log.mapper.LogMapper;
+import com.yl.monster.system.api.domain.OperLog;
+import com.yl.modules.log.mapper.OperLogMapper;
 import com.yl.modules.log.service.ILogService;
 import org.springframework.stereotype.Service;
 
@@ -13,5 +12,5 @@ import org.springframework.stereotype.Service;
  * @Project monster
  */
 @Service
-public class LogServiceImpl extends ServiceImpl<LogMapper, OperLog> implements ILogService{
+public class LogServiceImpl extends ServiceImpl<OperLogMapper, OperLog> implements ILogService{
 }

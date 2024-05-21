@@ -1,4 +1,4 @@
-package com.yl.modules.log.domain;
+package com.yl.monster.system.api.domain;
 
 import com.alibaba.fastjson2.annotation.JSONField;
 import com.baomidou.mybatisplus.annotation.TableName;

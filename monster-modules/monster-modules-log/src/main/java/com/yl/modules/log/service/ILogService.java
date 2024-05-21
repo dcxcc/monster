@@ -1,7 +1,7 @@
 package com.yl.modules.log.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.yl.modules.log.domain.OperLog;
+import com.yl.monster.system.api.domain.OperLog;
 
 /**
  * @Author: YL

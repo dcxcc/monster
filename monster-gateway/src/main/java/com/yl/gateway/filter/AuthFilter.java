@@ -17,7 +17,6 @@ import org.springframework.cloud.gateway.filter.GlobalFilter;
 import org.springframework.core.Ordered;
 import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.stereotype.Component;
-import org.springframework.util.MultiValueMap;
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
 
@@ -43,16 +42,10 @@ public class AuthFilter implements GlobalFilter, Ordered {
         ServerHttpRequest request = exchange.getRequest();
         ServerHttpRequest.Builder mutate = request.mutate();
         String url = request.getURI().getPath();
-        String token;
         if (StringUtils.matches(url, ignoreWhiteProperties.getWhites())) {
             return chain.filter(exchange);
         }
-        if (ignoreWhiteProperties.getWs().equals(url)) {
-            MultiValueMap<String, String> queryParams = request.getQueryParams();
-            token = queryParams.get(TokenConstants.AUTHENTICATION).getFirst();
-        } else {
-            token = getToken(request);
-        }
+        String token = getToken(request);
         if (StringUtils.isEmpty(token)) {
             return unauthorizedResponse(exchange, "令牌不能为空");
         }

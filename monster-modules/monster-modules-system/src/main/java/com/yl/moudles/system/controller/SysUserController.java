@@ -1,17 +1,16 @@
 package com.yl.moudles.system.controller;
 
+import com.yl.common.core.constant.UserConstants;
 import com.yl.common.core.domain.R;
 import com.yl.common.core.utils.StringUtils;
 import com.yl.common.core.web.controller.BaseController;
 import com.yl.common.security.annotation.InnerAuth;
 import com.yl.monster.system.api.domain.SysUser;
 import com.yl.monster.system.api.model.LoginUser;
+import com.yl.moudles.system.service.ISysConfigService;
 import com.yl.moudles.system.service.ISysPermissionService;
 import com.yl.moudles.system.service.ISysUserService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Set;
 
@@ -26,11 +25,14 @@ public class SysUserController extends BaseController {
 
     private final ISysUserService userService;
     private final ISysPermissionService permissionService;
+    private final ISysConfigService configService;
 
-    public SysUserController(ISysUserService userService, ISysPermissionService permissionService) {
+    public SysUserController(ISysUserService userService, ISysPermissionService permissionService, ISysConfigService configService) {
         this.userService = userService;
         this.permissionService = permissionService;
+        this.configService = configService;
     }
+
     @InnerAuth
     @GetMapping("/info/{username}")
     public R<LoginUser> info(@PathVariable String username) {
@@ -43,5 +45,18 @@ public class SysUserController extends BaseController {
         LoginUser loginUser = new LoginUser();
         loginUser.setSysUser(sysUser).setRoles(roles).setPermissions(permissions);
         return R.ok(loginUser);
+    }
+
+    @InnerAuth
+    @PostMapping("/register")
+    public R<Boolean> register(@RequestBody SysUser sysUser) {
+        String configValues = configService.getConfigValuesByKey("sys.account.registerUser");
+        if (!Boolean.parseBoolean(configValues)) {
+            return R.fail("当前系统没有开启注册功能！");
+        }
+        if (UserConstants.NOT_UNIQUE.equals(userService.checkUserNameUnique(sysUser.getUserName()))) {
+            return R.fail("保存用户'" + sysUser.getUserName() + "'失败，注册账号已存在");
+        }
+        return R.ok(userService.save(sysUser));
     }
 }

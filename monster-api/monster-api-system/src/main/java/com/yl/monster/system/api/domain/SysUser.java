@@ -1,11 +1,11 @@
 package com.yl.monster.system.api.domain;
 
-import com.baomidou.mybatisplus.annotation.TableLogic;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.yl.common.core.annotation.Excel;
 import com.yl.common.core.annotation.Excels;
 import com.yl.common.core.web.domain.BaseEntity;
 import lombok.*;
+import lombok.experimental.Accessors;
 
 import java.io.Serial;
 import java.util.Date;
@@ -16,6 +16,7 @@ import java.util.List;
  * @Date: 2024-05-13
  * @Project monster
  */
+@Accessors(chain = true)
 @EqualsAndHashCode(callSuper = true)
 @Data
 @TableName(value = "sys_user",excludeProperty = {"dept","roles","roleIds","postIds","roleId"})

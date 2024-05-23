@@ -6,6 +6,7 @@ import com.yl.common.core.annotation.Excel;
 import com.yl.common.core.web.domain.BaseEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.experimental.Accessors;
 
 import java.io.Serial;
 import java.util.Date;
@@ -15,6 +16,7 @@ import java.util.Date;
  * @Date: 2024-05-13
  * @Project monster
  */
+@Accessors(chain = true)
 @EqualsAndHashCode(callSuper = true)
 @Data
 @TableName(value = "oper_log",excludeProperty = {"businessTypes","createBy","createTime","updateBy","updateTime","remark"})

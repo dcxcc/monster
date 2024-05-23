@@ -15,6 +15,7 @@
         <module>monster-common-redis</module>
         <module>monster-common-core</module>
         <module>monster-common-security</module>
+        <module>monster-common-log</module>
     </modules>
 
 </project>

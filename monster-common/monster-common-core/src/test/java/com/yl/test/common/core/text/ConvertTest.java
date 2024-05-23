@@ -1,4 +1,4 @@
-package com.yl.test.modules.core.text;
+package com.yl.test.common.core.text;
 
 import com.yl.common.core.text.Convert;
 import org.junit.Test;

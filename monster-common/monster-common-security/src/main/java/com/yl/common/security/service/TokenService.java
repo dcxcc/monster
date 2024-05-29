@@ -60,20 +60,33 @@ public class TokenService {
      */
     private final static Long MILLIS_MINUTE_TEN = CacheConstants.REFRESH_TIME * MILLIS_MINUTE;
 
+    /**
+     * 创建用户登录令牌
+     *
+     * @param loginUser 登录用户信息，包含系统用户详细信息
+     * @return 包含访问令牌和过期时间的Map
+     */
     public Map<String, Object> createToken(LoginUser loginUser) {
+        // 生成唯一的令牌
         String token = IdUtils.randomUUID();
+        // 获取用户ID和用户名
         Long userId = loginUser.getSysUser().getUserId();
         String userName = loginUser.getSysUser().getUserName();
+        // 设置登录用户的令牌、用户ID、用户名和IP地址
         loginUser.setToken(token)
                 .setUserid(userId)
                 .setUsername(userName)
                 .setIpaddr(IpUtils.getIpAddr(ServletUtils.getRequest()));
+        // 刷新用户令牌
         refreshToken(loginUser);
+        // 准备令牌声明Map
         HashMap<String, Object> claimsMap = new HashMap<>();
         claimsMap.put(SecurityConstants.USER_KEY, token);
         claimsMap.put(SecurityConstants.DETAILS_USER_ID, userId);
         claimsMap.put(SecurityConstants.DETAILS_USERNAME, userName);
+        // 准备响应Map，包含JWT令牌和过期时间
         HashMap<String, Object> rspMap = new HashMap<>();
+        // 生成JWT令牌
         String jwt = JwtAuthenticationService.generateToken(claimsMap, EXPIRE_TIME);
         rspMap.put("access_token", jwt);
         rspMap.put("expires_in", EXPIRE_TIME);

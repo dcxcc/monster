@@ -1,3 +1,5 @@
 com.yl.common.security.service.TokenService
 com.yl.common.security.aspect.InnerAuthAspect
 com.yl.common.security.handler.GlobalExceptionHandler
+com.yl.common.security.config.WebMvcConfig
+

@@ -5,6 +5,8 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.yl.common.core.web.controller.BaseController;
 import com.yl.common.core.web.domain.AjaxResult;
 import com.yl.common.core.web.page.PageResult;
+import com.yl.common.log.annotation.Log;
+import com.yl.common.log.enums.BusinessType;
 import com.yl.common.security.annotation.InnerAuth;
 import com.yl.monster.system.api.domain.OperLog;
 import com.yl.modules.log.service.ILogService;
@@ -31,6 +33,7 @@ public class OperLogController extends BaseController {
     }
 
     @GetMapping("/page/{page}/{size}")
+    @Log(title = "日志查询", businessType = BusinessType.QUERY)
     public PageResult page(@PathVariable Long page, @PathVariable Long size) {
         Page<OperLog> operLogPage = new Page<>(page, size);
         IPage<OperLog> pageData = logService.page(operLogPage);

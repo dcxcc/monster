@@ -163,6 +163,11 @@
                 <artifactId>monster-common-security</artifactId>
                 <version>${monster.version}</version>
             </dependency>
+            <dependency>
+                <groupId>com.yl</groupId>
+                <artifactId>monster-common-log</artifactId>
+                <version>${monster.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 

@@ -43,5 +43,9 @@
             <groupId>com.yl</groupId>
             <artifactId>monster-common-security</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.yl</groupId>
+            <artifactId>monster-common-log</artifactId>
+        </dependency>
     </dependencies>
 </project>

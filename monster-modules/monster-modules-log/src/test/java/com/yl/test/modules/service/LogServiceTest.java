@@ -1,6 +1,7 @@
 package com.yl.test.modules.service;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.yl.common.log.service.AsyncLogService;
 import com.yl.monster.system.api.domain.OperLog;
 import com.yl.modules.log.mapper.OperLogMapper;
 import com.yl.modules.log.service.ILogService;
@@ -20,6 +21,18 @@ public class LogServiceTest extends BaseTest {
     OperLogMapper operLogMapper;
     @Autowired
     ILogService logService;
+    @Autowired
+    AsyncLogService asyncLogService;
+
+    @Test
+    public void testAsync() {
+        long l = System.currentTimeMillis();
+        System.out.println(Thread.currentThread().getName()+"开始调用");
+        asyncLogService.asyncTask();
+        long l1 = System.currentTimeMillis();
+        System.out.println(Thread.currentThread().getName()+"结束调用，耗时："+(l1-l));
+    }
+
     @Test
     public void testMapper() {
         List<OperLog> operLogs = operLogMapper.selectList(null);

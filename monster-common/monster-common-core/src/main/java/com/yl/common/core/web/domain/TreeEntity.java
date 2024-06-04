@@ -1,5 +1,6 @@
 package com.yl.common.core.web.domain;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -32,6 +33,7 @@ public class TreeEntity extends BaseEntity
     private String ancestors;
 
     /** 子部门 */
+    @TableField(exist = false)
     private List<?> children = new ArrayList<>();
 
 }

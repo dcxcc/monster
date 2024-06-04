@@ -5,7 +5,6 @@ import com.yl.moudles.system.service.ISysMenuService;
 import com.yl.moudles.system.service.ISysPermissionService;
 import com.yl.moudles.system.service.ISysRoleService;
 import com.yl.moudles.system.service.ISysUserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;

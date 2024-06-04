@@ -1,6 +1,5 @@
 package com.yl.moudles.system.mapper;
 
-
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.yl.monster.system.api.domain.SysDictType;
 import org.apache.ibatis.annotations.Mapper;

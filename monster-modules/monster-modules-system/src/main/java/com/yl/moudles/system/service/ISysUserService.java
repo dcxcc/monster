@@ -14,4 +14,5 @@ public interface ISysUserService extends IService<SysUser> {
     Boolean isAdmin(Long userId);
 
     String checkUserNameUnique(String userName);
+
 }

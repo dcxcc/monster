@@ -1,9 +1,11 @@
 package com.yl.moudles.system.controller;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.yl.common.core.constant.UserConstants;
 import com.yl.common.core.domain.R;
 import com.yl.common.core.utils.StringUtils;
 import com.yl.common.core.web.controller.BaseController;
+import com.yl.common.core.web.page.PageResult;
 import com.yl.common.security.annotation.InnerAuth;
 import com.yl.monster.system.api.domain.SysUser;
 import com.yl.monster.system.api.model.LoginUser;
@@ -11,7 +13,6 @@ import com.yl.moudles.system.service.ISysConfigService;
 import com.yl.moudles.system.service.ISysPermissionService;
 import com.yl.moudles.system.service.ISysUserService;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.Set;
 
 /**
@@ -31,6 +32,12 @@ public class SysUserController extends BaseController {
         this.userService = userService;
         this.permissionService = permissionService;
         this.configService = configService;
+    }
+
+    @GetMapping("/list/{page}/{size}")
+    public PageResult list(SysUser sysUser, @PathVariable Long page, @PathVariable Long size) {
+        Page<SysUser> sysUserPage = new Page<>(page, size);
+        return getPageResult(userService.page(sysUserPage));
     }
 
     @InnerAuth

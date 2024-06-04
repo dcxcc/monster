@@ -8,5 +8,5 @@ import com.yl.moudles.system.domain.SysUserOnline;
  * @Date: 2024-05-31
  * @Project monster
  */
-public interface ISysUserOnline extends IService<SysUserOnline> {
+public interface ISysUserOnlineService extends IService<SysUserOnline> {
 }
